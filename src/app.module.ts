@@ -5,23 +5,23 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true, envFilePath: '../.env' }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (config) => ({
-        type: config.get('TYPEORM_CONNECTION'),
-        host: config.get('TYPEORM_HOST'),
-        username: config.get('TYPEORM_USERNAME'),
-        password: config.get('TYPEORM_PASSWORD'),
-        database: config.get('TYPEORM_DATABASE'),
-        url: config.get('TYPEORM_URL'),
-        port: config.get('TYPEORM_PORT'),
-        entities: [__dirname + 'dist/**/*.entity{.ts,.js}'],
-        synchronize: true,
-        autoLoadEntities: true,
-        logging: true,
-      }),
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.TYPEORM_HOST,
+      username: process.env.TYPEORM_USERNAME,
+      password: process.env.TYPEORM_PASSWORD,
+      database: process.env.TYPEORM_DATABASE,
+      url: process.env.TYPEORM_URL,
+      port: 5432,
+      entities: [__dirname + 'dist/**/*.entity{.ts,.js}'],
+      extra: {
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      },
+      synchronize: true,
+      autoLoadEntities: true,
     }),
     UserModule,
   ],

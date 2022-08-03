@@ -1,8 +1,5 @@
 import { CreateUserDto } from '../dto/create-user.dto';
-import { HttpException, Injectable } from '@nestjs/common';
-import { checkUuid } from 'src/utils/uuid/uuid';
-import { NOT_FOUND } from 'src/constants/constants';
-import { v4 as uuidv4 } from 'uuid';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../entity/user.entity';
