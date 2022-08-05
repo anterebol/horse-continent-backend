@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from './modules/user/module/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -23,7 +22,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         logging: true,
       }),
     }),
-    UserModule,
   ],
 })
 export class AppModule {}
