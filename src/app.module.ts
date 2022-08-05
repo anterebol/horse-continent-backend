@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ReviewModule } from './modules/review/module/review.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -22,6 +23,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: true,
       autoLoadEntities: true,
     }),
+    ReviewModule,
   ],
 })
 export class AppModule {}
