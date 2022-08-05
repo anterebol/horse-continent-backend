@@ -12,6 +12,7 @@ import {
   ValidationPipe,
   Put,
   Param,
+  Delete,
 } from '@nestjs/common';
 
 @Controller('review')
@@ -38,5 +39,10 @@ export class ReviewController {
   @UsePipes(new ValidationPipe())
   async updateReview(@Body() updateDto: ReviewDto, @Param('id') id: string) {
     return this.reviewService.updateReview(id, updateDto)
+  }
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  removeReview(@Param('id') id: string) {
+    return this.reviewService.removeReview(id);
   }
 }

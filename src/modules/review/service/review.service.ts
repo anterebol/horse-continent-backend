@@ -31,7 +31,7 @@ export class ReviewService {
     }
     return await this.reviewRepository.save({...review, ...body});
   }
-  async deleteReview(id: string) {
+  async removeReview(id: string) {
     checkUuid(id);
     const result = await this.reviewRepository.delete(id);
     if (result.affected === 0) {
