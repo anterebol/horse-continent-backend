@@ -8,10 +8,16 @@ export class ReviewEntity {
   name: string;
   @Column()
   description: string;
-  @Column()
+  @Column({
+    default: 5,
+  })
   stars: number;
-  @Column()
+  @Column({
+    default: 0
+  })
   likes: number;
-  @Column()
+  @Column({
+    default: true
+  })
   visible: boolean;
 }
