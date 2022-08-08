@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { ReviewModule } from './modules/review/module/review.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './modules/auth/auth.module';
+import { AuthController } from './modules/auth/auth.controller';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
@@ -24,6 +27,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       autoLoadEntities: true,
     }),
     ReviewModule,
+    AuthModule,
+    UserModule,
   ],
+  controllers: [AuthController],
 })
 export class AppModule {}
