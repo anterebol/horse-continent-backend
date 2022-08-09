@@ -11,7 +11,11 @@ export class UserEntity {
   password: string;
   @Column()
   name: string;
+  @Column({
+    default: 'admin'
+  })
+  role: string;
   toResponse() {
-    return { login: this.login, id: this.id, name: this.name };
+    return { login: this.login, id: this.id, name: this.name, role: this.role };
   }
 }

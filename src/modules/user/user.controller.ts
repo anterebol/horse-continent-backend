@@ -2,6 +2,7 @@ import { UpdateUserDto } from './dto/updateUser.dto';
 import { CreateUserDto } from './dto/createUser.dto';
 import { Body, Controller, Delete, Get, Header, HttpCode, HttpStatus, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
 import { UserService } from './user.service';
+import { removeUserDto } from './dto/deleteUser.dto';
 
 @Controller('user')
 export class UserController {
@@ -30,8 +31,10 @@ export class UserController {
   }
 
   @Delete(':id')
+  @Header('Content-Type', 'application/json')
   @HttpCode(HttpStatus.NO_CONTENT)
-  removeUser(@Param('id') id: string) {
-    return this.userService.removeUser(id);
+  @UsePipes(new ValidationPipe())
+  removeUser(@Body() removeDto: removeUserDto, @Param('id') id: string) {
+    return this.userService.removeUser(id, removeDto);
   }
 }
