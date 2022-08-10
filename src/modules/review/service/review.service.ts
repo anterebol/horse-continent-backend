@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ReviewEntity } from '../entity/review.entity';
 import { checkUuid } from 'src/utils/uuid/uuid';
-import { errCode, NOT_FOUND } from 'src/constants/constants';
+import { notFoundCode, NOT_FOUND } from 'src/constants/constants';
 
 @Injectable()
 export class ReviewService {
@@ -35,7 +35,7 @@ export class ReviewService {
     checkUuid(id);
     const result = await this.reviewRepository.delete(id);
     if (result.affected === 0) {
-      throw new HttpException(NOT_FOUND, errCode);
+      throw new HttpException(NOT_FOUND, notFoundCode);
     }
   }
 }

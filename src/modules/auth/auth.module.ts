@@ -1,14 +1,16 @@
-import { UserModule } from './../user/user.module';
-import { UserEntity } from './../user/user.entity';
-import { Module, forwardRef } from '@nestjs/common';
+import { UserModule } from '../user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthController } from './auth.controller';
+import { forwardRef, Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
-
+import { UserEntity } from '../user/user.entity';
+import * as dotenv from 'dotenv';
+dotenv.config();
+console.log(process.env.TOKEN_EXPIRE_TIME);
 @Module({
-  controllers: [AuthController],
   providers: [AuthService],
+  controllers: [AuthController],
   imports: [
     TypeOrmModule.forFeature([UserEntity]),
     forwardRef(() => UserModule),
@@ -19,6 +21,6 @@ import { JwtModule } from '@nestjs/jwt';
       },
     }),
   ],
-  exports: [AuthService],
+  exports: [AuthService, JwtModule],
 })
 export class AuthModule {}
