@@ -31,8 +31,12 @@ export class AuthService {
       if (user && (authDto.password === user.password)) {
         return user;
       }
-    } else {
-      throw new HttpException('login or password is incorrect', 403);
+      else {
+        throw new HttpException('login or password is incorrect', 403);
+      }
+    }
+    else {
+      throw new HttpException('incorrect user', 403);
     }
   }
 }

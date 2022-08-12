@@ -53,7 +53,7 @@ export class UserService {
         throw new HttpException(NOT_FOUND, notFoundCode);
       } else if (currentUser.password === currentPassword) {
         const isUserHas = await this.userRepository.findOne({ where: { login }});
-        if (isUserHas) {
+        if (isUserHas && currentUser.login !== login && user.login !== login) {
           throw new HttpException("This user was created before", notFoundCode);
         } else {
           if (user.role === 'admin') {
@@ -62,11 +62,11 @@ export class UserService {
           if (user.role === 'owner' && user.password === currentPassword) {
             return (await this.userRepository.save({ ...user, ...currectData }));
           } else {
-            throw new HttpException("This user was created before", UnauthorizedCode);
+            throw new HttpException("This user was created before", notFoundCode);
           }
         }
       } else {
-        throw new HttpException("Incorrect password", UnauthorizedCode);
+        throw new HttpException("Incorrect password", 403);
       }
     } else {
       throw new HttpException("Current user not found", notFoundCode);
@@ -85,7 +85,7 @@ export class UserService {
           return 'deleted';
         }
       } else if (user) {
-        throw new HttpException(user?.role === 'owner' ? "You can't delete owner" : "incorrect password", UnauthorizedCode);
+        throw new HttpException(user?.role === 'owner' ? "You can't delete owner" : "incorrect password", notFoundCode);
       } else {
         throw new HttpException(NOT_FOUND, notFoundCode);
       }
