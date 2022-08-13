@@ -23,6 +23,15 @@ export class EventService {
     const response = await this.eventRepository.save(event);
     return response;
   }
+  async updateBodyEvent(eventDto: AddEventDto, id: string) {
+    checkUuid(id);
+    const event = this.eventRepository.findOne({ where: { id }});
+    if (!event) {
+      throw new HttpException(NOT_FOUND, notFoundCode);
+    } else {
+      return await this.eventRepository.save({ ...event, ...eventDto });
+    }
+  }
   async removeEvent(id: string) {
     checkUuid(id);
     const result = await this.eventRepository.delete(id);

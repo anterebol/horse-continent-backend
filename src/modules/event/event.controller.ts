@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Header, HttpCode, HttpStatus, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Header, HttpCode, HttpStatus, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AddEventDto } from './dto/addEvent.dto';
 import { EventService } from './event.service';
 
@@ -19,7 +19,15 @@ export class EventController {
   }
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  removeEvent(@Param() id: string) {
-    return this.removeEvent(id);
+  removeEvent(@Param('id') id: string) {
+    return this.eventService.removeEvent(id);
   }
+  @Put(':id')
+  @HttpCode(HttpStatus.OK)
+  @UsePipes(new ValidationPipe())
+  @Header('Content-Type', 'application/json')
+  updateBodyEvent(@Body() eventBody: AddEventDto, @Param('id') id: string) {
+    return this.eventService.updateBodyEvent(eventBody, id);
+  }
+
 }
