@@ -5,6 +5,7 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AddEventDto } from './dto/addEvent.dto';
+import { UpdateOrderDto } from './dto/updateOrder.dto';
 
 @Injectable()
 export class EventService {
@@ -38,5 +39,28 @@ export class EventService {
     if (result.affected === 0) {
       throw new HttpException(NOT_FOUND, notFoundCode);
     } return 'deleted';
+  }
+  async updateOrderEvent(eventOrderDto: UpdateOrderDto) {
+    const { id, order } = eventOrderDto;
+    checkUuid(id);
+    const event = await this.eventRepository.findOne({ where: { id }});
+    if (event) {
+      const orderBefore = event.order;
+      const currentOrder = order;
+      if (orderBefore > currentOrder) {
+        for (let i = orderBefore - 1; i >= currentOrder; i--) {
+          let chengingEvent = await this.eventRepository.findOne({ where: { order: i }});
+          await this.eventRepository.save({ ...chengingEvent, order: chengingEvent.order + 1 });
+        }
+      } else if (currentOrder > orderBefore) {
+        for (let i = orderBefore + 1; i <= currentOrder; i++) {
+          let chengingEvent = await this.eventRepository.findOne({ where: { order: i }});
+          await this.eventRepository.save({ ...chengingEvent, order: chengingEvent.order - 1 });
+        }
+      }
+      return await this.eventRepository.save({ ...event, order: currentOrder });
+    } else {
+      throw new HttpException(NOT_FOUND, notFoundCode);
+    }
   }
 }

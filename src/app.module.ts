@@ -7,6 +7,8 @@ import { AuthController } from './modules/auth/auth.controller';
 import { UserModule } from './modules/user/user.module';
 import { MainModule } from './modules/main/main.module';
 import { EventModule } from './modules/event/event.module';
+import { GalleryController } from './modules/gallery/gallery.controller';
+import { GalleryModule } from './modules/gallery/gallery.module';
 
 @Module({
   imports: [
@@ -33,6 +35,7 @@ import { EventModule } from './modules/event/event.module';
     UserModule,
     MainModule,
     EventModule,
+    GalleryModule,
   ],
   controllers: [AuthController],
 })

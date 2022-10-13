@@ -1,3 +1,4 @@
+import { UpdateOrderDto } from './dto/updateOrder.dto';
 import { Body, Controller, Delete, Get, Header, HttpCode, HttpStatus, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AddEventDto } from './dto/addEvent.dto';
 import { EventService } from './event.service';
@@ -29,5 +30,11 @@ export class EventController {
   updateBodyEvent(@Body() eventBody: AddEventDto, @Param('id') id: string) {
     return this.eventService.updateBodyEvent(eventBody, id);
   }
-
+  @Post('/order')
+  @HttpCode(HttpStatus.OK)
+  @Header('Content-Type', 'application/json')
+  @UsePipes(new ValidationPipe())
+  chengeOrderEvent(@Body() orderBody: UpdateOrderDto) {
+    return this.eventService.updateOrderEvent(orderBody);
+  }
 }
