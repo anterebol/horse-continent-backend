@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Header, HttpCode, HttpStatus, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Header, HttpCode, HttpStatus, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { GalleryDto } from './dto/gallery.dto';
 import { GalleryService } from './gallery.service';
 
@@ -14,8 +14,12 @@ export class GalleryController {
   @Header('Content-Type', 'application/json')
   @HttpCode(HttpStatus.CREATED)
   @UsePipes(new ValidationPipe())
-  addEvent(@Body() addDto: GalleryDto) {
-    console.log(addDto)
+  addGalleryImg(@Body() addDto: GalleryDto) {
     return this.galleryService.addImage(addDto);
+  }
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  addEvent(@Param('id') id: string) {
+    return this.galleryService.removeImage(id);
   }
 }

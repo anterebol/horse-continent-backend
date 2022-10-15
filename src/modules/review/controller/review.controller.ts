@@ -14,6 +14,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { CommetnDto } from '../dto/comment.dto';
 
 @Controller('review')
 export class ReviewController {
@@ -25,6 +26,21 @@ export class ReviewController {
   async getReviews() {
     return await this.reviewService.getAll();
   }
+
+  @Get('/pages')
+  @HttpCode(HttpStatus.OK)
+  @Header('Content-Type', 'application/json')
+  async getPagesREview() {
+    return await this.reviewService.getPages();
+  }
+
+  @Get(':page')
+  @HttpCode(HttpStatus.OK)
+  @Header('Content-Type', 'application/json')
+  async getReviewsPage(@Param('page') page: string) {
+    return await this.reviewService.getPage(page);
+  }
+
   @Post()
   @Header('Content-Type', 'application/json')
   @HttpCode(HttpStatus.CREATED)
@@ -37,8 +53,8 @@ export class ReviewController {
   @Header('Content-Type', 'application/json')
   @HttpCode(HttpStatus.OK)
   @UsePipes(new ValidationPipe())
-  async updateReview(@Body() updateDto: ReviewDto, @Param('id') id: string) {
-    return this.reviewService.updateReview(id, updateDto)
+  async addComment (@Body() commetnDto: CommetnDto, @Param('id') id: string) {
+    return this.reviewService.addComment(id, commetnDto)
   }
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)

@@ -1,4 +1,5 @@
 import { IsString, IsNotEmpty, IsNumber, IsBoolean, IsOptional, Max, Min } from 'class-validator';
+
 export class ReviewDto {
   @IsString()
   @IsNotEmpty()
@@ -21,4 +22,11 @@ export class ReviewDto {
   @IsBoolean()
   @IsOptional()
   visible: boolean;
+
+  @IsString()
+  @IsOptional()
+  date: string;
+  @IsString()
+  @IsOptional()
+  comment: string;
 }
