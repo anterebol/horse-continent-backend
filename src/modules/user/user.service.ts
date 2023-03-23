@@ -25,6 +25,7 @@ export class UserService {
   }
   async addUser(userDto: CreateUserDto) {
     const { login, password, name, role } = userDto;
+    console.log('chek vercel');
     const isUser = await this.userRepository.findOne({where: { login }});
     if (!isUser) {
       // const hashPassword = await bcrypt.hash(
