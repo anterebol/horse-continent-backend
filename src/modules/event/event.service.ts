@@ -1,5 +1,5 @@
 import { notFoundCode, NOT_FOUND } from './../../constants/constants';
-import { checkUuid } from 'src/utils/uuid/uuid';
+import { checkUuid } from '../../utils/uuid/uuid';
 import { EventEntity } from './event.entity';
 import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';

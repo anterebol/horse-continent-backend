@@ -3,7 +3,7 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { GalleryEntity } from './gallery.entity';
-import { checkUuid } from 'src/utils/uuid/uuid';
+import { checkUuid } from '../../utils/uuid/uuid';
 import { notFoundCode, NOT_FOUND } from 'src/constants/constants';
 
 @Injectable()

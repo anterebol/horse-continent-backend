@@ -1,4 +1,4 @@
-import { checkUuid } from 'src/utils/uuid/uuid';
+import { checkUuid } from '../../utils/uuid/uuid';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { UserEntity } from './user.entity';
 import { Injectable, HttpException } from '@nestjs/common';
